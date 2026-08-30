@@ -209,7 +209,8 @@
             position: relative;
             overflow: hidden;
             flex-shrink: 0;
-            cursor: default;
+            user-select: none;
+            touch-action: pan-y;
         }
 
         .carousel-track {
@@ -226,82 +227,98 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-direction: column;
-            gap: 6px;
             flex-shrink: 0;
-            padding: 20px;
-            text-align: center;
             background: var(--bg-secondary);
         }
 
-        .carousel-slide .big-icon {
-            font-size: 52px;
-            line-height: 1.2;
-        }
-
-        .carousel-slide .slide-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .carousel-slide .slide-sub {
-            font-size: 14px;
-            color: var(--text-muted);
-            font-weight: 400;
-        }
-
-        /* Чередование фонов для слайдов */
-        .slide-bg-1 {
-            background: #12151e;
-        }
-        .slide-bg-2 {
-            background: #171b26;
-        }
-        .slide-bg-3 {
-            background: #1c2130;
-        }
-        .slide-bg-4 {
-            background: #21273a;
-        }
-
-        .carousel-badge {
-            position: absolute;
-            bottom: 14px;
-            right: 16px;
-            background: rgba(0, 0, 0, 0.7);
-            color: var(--text-secondary);
-            font-size: 11px;
-            font-weight: 500;
-            padding: 2px 14px;
-            border-radius: 30px;
-            backdrop-filter: blur(6px);
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
             pointer-events: none;
-            letter-spacing: 0.4px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .carousel-hint {
+        /* ----- Стрелки ----- */
+        .carousel-btn {
             position: absolute;
             top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.7);
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
             color: var(--text-secondary);
-            padding: 6px 18px;
-            border-radius: 40px;
-            font-size: 13px;
-            backdrop-filter: blur(8px);
-            pointer-events: none;
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
             opacity: 0;
-            transition: opacity 0.3s;
-            white-space: nowrap;
-            font-weight: 400;
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: opacity 0.3s, background 0.2s;
         }
 
-        .image-carousel:hover .carousel-hint {
+        .image-carousel:hover .carousel-btn {
             opacity: 1;
+        }
+
+        .carousel-btn:hover {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+
+        .carousel-btn-prev {
+            left: 12px;
+        }
+
+        .carousel-btn-next {
+            right: 12px;
+        }
+
+        /* ----- Индикаторы (точки) ----- */
+        .carousel-dots {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.25);
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+            padding: 0;
+        }
+
+        .carousel-dot.active {
+            background: var(--accent);
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        .carousel-dot:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .carousel-dot.active:hover {
+            background: var(--accent);
+        }
+
+        /* Подпись "3 фото" убираем, теперь точки */
+        .carousel-badge {
+            display: none;
         }
 
         /* ----- Инфо продукта ----- */
@@ -431,7 +448,8 @@
             margin-top: 18px;
             font-size: 14px;
             color: var(--text-muted);
-            max-width: 600px;
+            max-width: 700px;
+            line-height: 1.7;
         }
 
         /* ----- Футер ----- */
@@ -482,8 +500,20 @@
             .contacts-block a {
                 justify-content: center;
             }
-            .carousel-hint {
-                display: none;
+
+            .carousel-btn {
+                width: 32px;
+                height: 32px;
+                font-size: 16px;
+                opacity: 0.7;
+            }
+
+            .carousel-btn-prev {
+                left: 6px;
+            }
+
+            .carousel-btn-next {
+                right: 6px;
             }
         }
 
@@ -510,6 +540,13 @@
             .logo {
                 font-size: 20px;
             }
+
+            .carousel-btn {
+                width: 28px;
+                height: 28px;
+                font-size: 14px;
+                opacity: 0.7;
+            }
         }
 
         /* Анимация появления */
@@ -530,20 +567,6 @@
                 opacity: 1;
                 transform: translateY(0);
             }
-        }
-
-        /* Маленький акцент для философии */
-        .philosophy-tag {
-            display: inline-block;
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: 0.6px;
-            color: var(--accent);
-            border: 1px solid var(--accent-dim);
-            padding: 2px 16px;
-            border-radius: 40px;
-            margin-bottom: 16px;
-            text-transform: uppercase;
         }
     </style>
 </head>
@@ -589,29 +612,21 @@
                 <div class="product-card">
                     <div class="image-carousel" data-carousel>
                         <div class="carousel-track">
-                            <div class="carousel-slide slide-bg-1">
-                                <span class="big-icon">🟢🔴</span>
-                                <span class="slide-title">Две кнопки 22 мм</span>
-                                <span class="slide-sub">зелёная + красная</span>
+                            <div class="carousel-slide">
+                                <img src="duoprime1.jpeg" alt="DUO-Prime вид 1" loading="lazy" />
                             </div>
-                            <div class="carousel-slide slide-bg-2">
-                                <span class="big-icon">🟢</span>
-                                <span class="slide-title">Зелёная = Ctrl+C</span>
-                                <span class="slide-sub">копировать</span>
+                            <div class="carousel-slide">
+                                <img src="duoprime2.jpeg" alt="DUO-Prime вид 2" loading="lazy" />
                             </div>
-                            <div class="carousel-slide slide-bg-3">
-                                <span class="big-icon">🔴</span>
-                                <span class="slide-title">Красная = Ctrl+V</span>
-                                <span class="slide-sub">вставить</span>
-                            </div>
-                            <div class="carousel-slide slide-bg-4">
-                                <span class="big-icon">🔌</span>
-                                <span class="slide-title">USB Type-C</span>
-                                <span class="slide-sub">подключение</span>
+                            <div class="carousel-slide">
+                                <img src="duoprime3.jpeg" alt="DUO-Prime вид 3" loading="lazy" />
                             </div>
                         </div>
-                        <div class="carousel-hint">↔️ наведи, чтобы покрутить</div>
-                        <div class="carousel-badge">4 вида</div>
+
+                        <button class="carousel-btn carousel-btn-prev" aria-label="Предыдущее фото">‹</button>
+                        <button class="carousel-btn carousel-btn-next" aria-label="Следующее фото">›</button>
+
+                        <div class="carousel-dots"></div>
                     </div>
 
                     <div class="product-info">
@@ -628,9 +643,9 @@
                         </p>
                         <div class="specs">
                             <span>🕹️ 2×22 мм (зелёная / красная, без подсветки, без фиксации)</span>
-                            <span>🔌 USB Type-C</span>
+                            <span>🔌 USB Type-C, в комплекте кабель 1000 мм</span>
                             <span>🧱 Промышленный корпус</span>
-			<span>🛡️ IP33, не подтверждено испытаниями</span>
+                            <span>🛡️ IP33, не подтверждено испытаниями / сертификатами</span>
                         </div>
                     </div>
                 </div>
@@ -639,29 +654,21 @@
                 <div class="product-card">
                     <div class="image-carousel" data-carousel>
                         <div class="carousel-track">
-                            <div class="carousel-slide slide-bg-1">
-                                <span class="big-icon">🍄</span>
-                                <span class="slide-title">Кнопка-грибок</span>
-                                <span class="slide-sub">красная</span>
+                            <div class="carousel-slide">
+                                <img src="lock1.jpg" alt="Lock вид 1" loading="lazy" />
                             </div>
-                            <div class="carousel-slide slide-bg-2">
-                                <span class="big-icon">🔴</span>
-                                <span class="slide-title">Одна кнопка</span>
-                                <span class="slide-sub">увеличенного диаметра</span>
+                            <div class="carousel-slide">
+                                <img src="lock2.jpeg" alt="Lock вид 2" loading="lazy" />
                             </div>
-                            <div class="carousel-slide slide-bg-3">
-                                <span class="big-icon">🖥️</span>
-                                <span class="slide-title">Win + L</span>
-                                <span class="slide-sub">блокировка экрана</span>
-                            </div>
-                            <div class="carousel-slide slide-bg-4">
-                                <span class="big-icon">🔒</span>
-                                <span class="slide-title">Мгновенный уход</span>
-                                <span class="slide-sub">с рабочего места</span>
+                            <div class="carousel-slide">
+                                <img src="lock3.jpeg" alt="Lock вид 3" loading="lazy" />
                             </div>
                         </div>
-                        <div class="carousel-hint">↔️ наведи, чтобы покрутить</div>
-                        <div class="carousel-badge">4 вида</div>
+
+                        <button class="carousel-btn carousel-btn-prev" aria-label="Предыдущее фото">‹</button>
+                        <button class="carousel-btn carousel-btn-next" aria-label="Следующее фото">›</button>
+
+                        <div class="carousel-dots"></div>
                     </div>
 
                     <div class="product-info">
@@ -671,16 +678,16 @@
                             <span class="command command-red">Win + L</span>
                         </div>
                         <p>
-                            Одна красная кнопка увеличенного диаметра. Нажатие отправляет команду                             <strong style="color:var(--red);">блокировки рабочей станции</strong>.<br>Будучи сконструированной на базе кнопки аварийной остановки оборудования, подходит для блокировки компьютера в следующих сценариях:
-<br> - соблюдение положений корпоративной IT-культуры о необходимости блокировать компьютер при покидании рабочего места;
-<br> - соблюдение личной приватности при внезапном входе третьих лиц в комнату без стука;
-<br> - действительная аварийная остановка работы за компьютером в случае перегрузки нервной системы и при необходимости осуществления перерыва (см. мем с Леонидом Агутиным и красной кнопкой).
+                            Одна красная кнопка увеличенного диаметра. Нажатие отправляет команду <strong style="color:var(--red);">блокировки рабочей станции</strong>.<br>Будучи сконструированной на базе кнопки аварийной остановки оборудования, подходит для блокировки компьютера в следующих сценариях:
+                            <br> - соблюдение положений корпоративной IT-культуры о необходимости блокировать компьютер при покидании рабочего места;
+                            <br> - соблюдение личной приватности при внезапном входе третьих лиц в комнату без стука;
+                            <br> - действительная аварийная остановка работы за компьютером в случае перегрузки нервной системы и при необходимости осуществления перерыва (см. мем с Леонидом Агутиным и красной кнопкой).
                         </p>
                         <div class="specs">
                             <span>🕹️ 1×грибок (красная, без подсветки, без фиксации)</span>
-                            <span>🔌 USB Type-C</span>
+                            <span>🔌 USB Type-C, в комплекте кабель 1000 мм</span>
                             <span>🧱 Промышленный корпус</span>
-<span>🛡️ IP33, не подтверждено испытаниями</span>
+                            <span>🛡️ IP33, не подтверждено испытаниями / сертификатами</span>
                         </div>
                     </div>
                 </div>
@@ -690,27 +697,27 @@
     </section>
 
     <!-- ===== КОНТАКТЫ ===== -->
-<section style="background:var(--bg-primary);">
-    <div class="container">
-        <h2 class="section-title">Связаться с PushCraft</h2>
-        <div class="contacts-block">
-            <span class="label">📱 Напишите:</span>
+    <section style="background:var(--bg-primary);">
+        <div class="container">
+            <h2 class="section-title">Связаться с PushCraft</h2>
+            <div class="contacts-block">
+                <span class="label">📱 Напишите:</span>
 
-            <a href="https://t.me/wgzzik" target="_blank">
-                ✈️ Telegram
-            </a>
+                <a href="https://t.me/wgzzik" target="_blank">
+                    ✈️ Telegram
+                </a>
 
-            <span class="divider">·</span>
+                <span class="divider">·</span>
 
-            <a href="https://max.ru/u/f9LHodD0cOJwd7ltY7vQHWEu3-KCAdmov8brSn7BMb0k0W6M917EW4paTN4" target="_blank">
-                💬 MAX
-            </a>
+                <a href="https://max.ru/u/f9LHodD0cOJwd7ltY7vQHWEu3-KCAdmov8brSn7BMb0k0W6M917EW4paTN4" target="_blank">
+                    💬 MAX
+                </a>
+            </div>
+            <p class="contacts-note">
+                Мы не собираем, не храним и не обрабатываем персональные данные посетителей сайта. Сайт использует только технические cookie-файлы, необходимые для его работы, они не позволяют идентифицировать пользователя. Информация о продукте носит справочный характер. Это информационная страница. Здесь нет форм для сбора данных. Все контакты публичны и указаны для связи напрямую.
+            </p>
         </div>
-        <p class="contacts-note">
-Мы не собираем, не храним и не обрабатываем персональные данные посетителей сайта. Сайт использует только технические cookie-файлы, необходимые для его работы, они не позволяют идентифицировать пользователя. Информация о продукте носит справочный характер. Это информационная страница. Здесь нет форм для сбора данных. Все контакты публичны и указаны для связи напрямую.
-        </p>
-    </div>
-</section>
+    </section>
 
     <!-- ===== ФУТЕР ===== -->
     <footer class="footer">
@@ -726,50 +733,110 @@
             const track = carousel.querySelector('.carousel-track');
             const slides = track.querySelectorAll('.carousel-slide');
             const total = slides.length;
-            let current = 0;
-            let interval = null;
-            let isHovering = false;
+
+            if (total <= 1) return;
+
+            const prevBtn = carousel.querySelector('.carousel-btn-prev');
+            const nextBtn = carousel.querySelector('.carousel-btn-next');
+            const dotsContainer = carousel.querySelector('.carousel-dots');
+
+            let currentIndex = 0;
+            let isTransitioning = false;
+
+            // Создаём точки
+            for (let i = 0; i < total; i++) {
+                const dot = document.createElement('button');
+                dot.classList.add('carousel-dot');
+                if (i === 0) dot.classList.add('active');
+                dot.setAttribute('aria-label', `Фото ${i + 1}`);
+                dot.dataset.index = i;
+                dot.addEventListener('click', () => goTo(i));
+                dotsContainer.appendChild(dot);
+            }
+
+            const dots = dotsContainer.querySelectorAll('.carousel-dot');
+
+            function updateDots() {
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === currentIndex);
+                });
+            }
 
             function goTo(index) {
+                if (isTransitioning) return;
                 if (index < 0) index = total - 1;
                 if (index >= total) index = 0;
-                current = index;
-                track.style.transform = `translateX(-${current * 100}%)`;
+                if (index === currentIndex) return;
+
+                isTransitioning = true;
+                currentIndex = index;
+                track.style.transform = `translateX(-${currentIndex * 100}%)`;
+                updateDots();
+
+                setTimeout(() => {
+                    isTransitioning = false;
+                }, 400);
             }
 
             function next() {
-                goTo(current + 1);
+                goTo(currentIndex + 1);
             }
 
-            function start() {
-                if (interval) clearInterval(interval);
-                interval = setInterval(next, 1000);
+            function prev() {
+                goTo(currentIndex - 1);
             }
 
-            function stop() {
-                if (interval) {
-                    clearInterval(interval);
-                    interval = null;
+            // События для кнопок
+            nextBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                next();
+            });
+
+            prevBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                prev();
+            });
+
+            // Клавиатура
+            carousel.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') prev();
+                if (e.key === 'ArrowRight') next();
+            });
+
+            // Свайп для мобильных
+            let touchStartX = 0;
+            let touchEndX = 0;
+            let isSwiping = false;
+
+            carousel.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+                isSwiping = true;
+            }, { passive: true });
+
+            carousel.addEventListener('touchmove', (e) => {
+                // Предотвращаем скролл страницы при свайпе по карусели
+                if (isSwiping) {
+                    e.preventDefault();
                 }
-            }
+            }, { passive: false });
 
-            carousel.addEventListener('mouseenter', () => {
-                isHovering = true;
-                start();
-            });
+            carousel.addEventListener('touchend', (e) => {
+                if (!isSwiping) return;
+                touchEndX = e.changedTouches[0].screenX;
+                const diff = touchStartX - touchEndX;
 
-            carousel.addEventListener('mouseleave', () => {
-                isHovering = false;
-                stop();
-                goTo(0);
-            });
-
-            // На мобильных — переключение по касанию
-            carousel.addEventListener('touchstart', () => {
-                if (!isHovering) {
-                    next();
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0) {
+                        next();
+                    } else {
+                        prev();
+                    }
                 }
-            });
+                isSwiping = false;
+            }, { passive: true });
+
+            // Фокус на карусель для клавиатуры
+            carousel.setAttribute('tabindex', '0');
         });
     </script>
 
