@@ -19,12 +19,17 @@
             --bg-card-hover: #222836;
             --bg-elevated: #252b3a;
             --border-color: #2a3040;
+            --border-hover: #4a5268;
             --text-primary: #edf0f5;
             --text-secondary: #a8b2c9;
             --text-muted: #6b7a94;
             --accent: #e53e4a;
             --accent-dim: #7a2a32;
             --accent-glow: rgba(229, 62, 74, 0.25);
+            --green: #4ade80;
+            --green-dim: #1a3a2a;
+            --red: #f87171;
+            --red-dim: #3a1a1a;
             --font: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
             --radius: 24px;
             --shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
@@ -123,11 +128,12 @@
         }
 
         .hero h1 .accent {
-            color: var(--accent);
-            background: var(--accent-dim);
+            color: var(--text-secondary);
+            background: var(--bg-card);
             padding: 0 14px;
             border-radius: 14px;
             display: inline-block;
+            border: 1px solid var(--border-color);
         }
 
         .hero .philosophy {
@@ -189,10 +195,10 @@
         }
 
         .product-card:hover {
-            border-color: var(--accent);
+            border-color: var(--border-hover);
             background: var(--bg-card-hover);
             transform: translateY(-4px);
-            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--accent-glow);
+            box-shadow: var(--shadow);
         }
 
         /* ----- Карусель ----- */
@@ -210,7 +216,7 @@
             display: flex;
             width: 100%;
             height: 100%;
-            transition: transform 0.25s ease-out;
+            transition: transform 0.4s ease-out;
             will-change: transform;
         }
 
@@ -312,7 +318,7 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.8px;
-            color: var(--accent);
+            color: var(--text-muted);
             margin-bottom: 6px;
         }
 
@@ -323,6 +329,7 @@
             line-height: 1.3;
         }
 
+        /* ----- Команды с цветами ----- */
         .product-info .command {
             font-family: 'Courier New', monospace;
             background: var(--bg-secondary);
@@ -330,10 +337,21 @@
             border-radius: 8px;
             font-size: 17px;
             font-weight: 700;
-            color: var(--accent);
             display: inline-block;
             margin: 6px 0 10px;
             border: 1px solid var(--border-color);
+        }
+
+        .product-info .command-green {
+            color: var(--green);
+            border-color: var(--green-dim);
+            background: rgba(74, 222, 128, 0.08);
+        }
+
+        .product-info .command-red {
+            color: var(--red);
+            border-color: var(--red-dim);
+            background: rgba(248, 113, 113, 0.08);
         }
 
         .product-info .command + .command {
@@ -535,9 +553,9 @@
     <header class="header">
         <div class="container">
             <div class="logo">
-                <span class="bolt">⚡</span>
+                <span class="bolt">👉🔴</span>
                 <span class="push">Push</span><span class="craft">Craft</span>
-                <span class="tagline">everything can be a controller</span>
+                <span class="tagline"></span>
             </div>
         </div>
     </header>
@@ -546,11 +564,11 @@
     <section class="hero">
         <div class="container">
             <h1>
-                Превращаем <span class="accent">всё</span><br />
+                Превращаем  <span class="accent">_всё_</span><br />
                 в контроллеры
             </h1>
             <p>
-                Промышленные кнопочные посты с USB-подключением.
+                Промышленные кнопочные посты с USB-подключением для отправки сочетаний клавиш в компьютеры под управлением ОС Windows.
             </p>
             <p class="sub">
                 Без драйверов. Без ПО. Работает как USB-клавиатура.
@@ -567,7 +585,7 @@
 
             <div class="products-grid">
 
-                <!-- ===== ПРОДУКТ 1: Duo ===== -->
+                <!-- ===== ПРОДУКТ 1: DUO-Prime ===== -->
                 <div class="product-card">
                     <div class="image-carousel" data-carousel>
                         <div class="carousel-track">
@@ -597,21 +615,22 @@
                     </div>
 
                     <div class="product-info">
-                        <span class="model">PushCraft Duo</span>
-                        <h2>Кнопочный пост 2×22 мм</h2>
+                        <span class="model">PushCraft DUO-Prime</span>
+                        <h2></h2>
                         <div>
-                            <span class="command">Ctrl+C</span>
+                            <span class="command command-green">Ctrl+C</span>
                             <span style="color:var(--text-muted); margin:0 4px;">и</span>
-                            <span class="command">Ctrl+V</span>
+                            <span class="command command-red">Ctrl+V</span>
                         </div>
                         <p>
-                            Зелёная кнопка — <strong style="color:var(--text-primary);">копировать</strong>, красная — <strong style="color:var(--text-primary);">вставить</strong>.
-                            Идеально для монтажёров, дизайнеров, разработчиков и всех, кто устал от клавиатурных сокращений.
+                            Зелёная кнопка — <strong style="color:var(--green);">копировать</strong><br>Красная кнопка — <strong style="color:var(--red);">вставить</strong><br>
+                            Для сотрудников, чья работа — агрегация и синхронизация семантического контента, бенчмаркинг и бэк-офисная интеграция данных. Теперь ты не просто «мясной прокси», а оператор высокотехнологичного копипаста.
                         </p>
                         <div class="specs">
-                            <span>🔘 2×22 мм (зелёная / красная)</span>
+                            <span>🕹️ 2×22 мм (зелёная / красная, без подсветки, без фиксации)</span>
                             <span>🔌 USB Type-C</span>
                             <span>🧱 Промышленный корпус</span>
+			<span>🛡️ IP33, не подтверждено испытаниями</span>
                         </div>
                     </div>
                 </div>
@@ -628,7 +647,7 @@
                             <div class="carousel-slide slide-bg-2">
                                 <span class="big-icon">🔴</span>
                                 <span class="slide-title">Одна кнопка</span>
-                                <span class="slide-sub">большого диаметра</span>
+                                <span class="slide-sub">увеличенного диаметра</span>
                             </div>
                             <div class="carousel-slide slide-bg-3">
                                 <span class="big-icon">🖥️</span>
@@ -647,18 +666,21 @@
 
                     <div class="product-info">
                         <span class="model">PushCraft Lock</span>
-                        <h2>Кнопочный пост с грибком</h2>
+                        <h2></h2>
                         <div>
-                            <span class="command">Win + L</span>
+                            <span class="command command-red">Win + L</span>
                         </div>
                         <p>
-                            Одна красная кнопка большого диаметра. Нажатие отправляет команду
-                            <strong style="color:var(--text-primary);">блокировки экрана</strong> — моментально уйти с рабочего места без лишних движений.
+                            Одна красная кнопка увеличенного диаметра. Нажатие отправляет команду                             <strong style="color:var(--red);">блокировки рабочей станции</strong>.<br>Будучи сконструированной на базе кнопки аварийной остановки оборудования, подходит для блокировки компьютера в следующих сценариях:
+<br> - соблюдение положений корпоративной IT-культуры о необходимости блокировать компьютер при покидании рабочего места;
+<br> - соблюдение личной приватности при внезапном входе третьих лиц в комнату без стука;
+<br> - действительная аварийная остановка работы за компьютером в случае перегрузки нервной системы и при необходимости осуществления перерыва (см. мем с Леонидом Агутиным и красной кнопкой).
                         </p>
                         <div class="specs">
-                            <span>🔘 1×грибок (красная)</span>
+                            <span>🕹️ 1×грибок (красная)</span>
                             <span>🔌 USB Type-C</span>
                             <span>🧱 Промышленный корпус</span>
+<span>🛡️ IP33, не подтверждено испытаниями</span>
                         </div>
                     </div>
                 </div>
@@ -668,40 +690,33 @@
     </section>
 
     <!-- ===== КОНТАКТЫ ===== -->
-    <section style="background:var(--bg-primary);">
-        <div class="container">
-            <h2 class="section-title">Связаться со мной</h2>
-            <div class="contacts-block">
-                <span class="label">📱 Напишите:</span>
+<section style="background:var(--bg-primary);">
+    <div class="container">
+        <h2 class="section-title">Связаться с PushCraft</h2>
+        <div class="contacts-block">
+            <span class="label">📱 Напишите:</span>
 
-                <a href="https://t.me/your_nick" target="_blank">
-                    ✈️ Telegram
-                </a>
+            <a href="https://t.me/wgzzik" target="_blank">
+                ✈️ Telegram
+            </a>
 
-                <span class="divider">·</span>
+            <span class="divider">·</span>
 
-                <a href="https://wa.me/79001234567" target="_blank">
-                    💬 WhatsApp
-                </a>
-
-                <span class="divider">·</span>
-
-                <a href="https://t.me/your_nick" target="_blank">
-                    💬 Другой мессенджер
-                </a>
-            </div>
-            <p class="contacts-note">
-                Это информационная страница. Здесь нет форм для сбора данных.<br />
-                Все контакты публичны и указаны для связи со мной напрямую.
-            </p>
+            <a href="https://max.ru/wgzzik" target="_blank">
+                💬 MAX
+            </a>
         </div>
-    </section>
+        <p class="contacts-note">
+Мы не собираем, не храним и не обрабатываем персональные данные посетителей сайта. Сайт использует только технические cookie-файлы, необходимые для его работы, они не позволяют идентифицировать пользователя. Информация о продукте носит справочный характер. Это информационная страница. Здесь нет форм для сбора данных. Все контакты публичны и указаны для связи напрямую.
+        </p>
+    </div>
+</section>
 
     <!-- ===== ФУТЕР ===== -->
     <footer class="footer">
         <div class="container">
             <p><span class="brand">PushCraft</span> · everything can be a controller</p>
-            <p>© 2026 · пилотный проект · без сбора персональных данных</p>
+            <p>© 2026 · пилотный проект · </p>
         </div>
     </footer>
 
